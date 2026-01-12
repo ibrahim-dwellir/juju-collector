@@ -1,0 +1,9 @@
+controllers:
+  - controller: local
+    username: username
+    password: password
+    owner_id: 1
+    cacert: |
+      -----BEGIN CERTIFICATE-----
+      ...
+      -----END CERTIFICATE-----
