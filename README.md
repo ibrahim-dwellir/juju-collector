@@ -62,6 +62,6 @@ Or:
 ```
 
 ## Notes
-- If `DB_URL` or `OWNER_ID` is missing, the process logs an error and exits early.
+- If `DB_URL` is missing, the process logs an error and exits early.
 - `owner_id` in the controller config is used when creating DB entries.
 - Failures in one controller do not stop processing of other controllers.
