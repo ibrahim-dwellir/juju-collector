@@ -14,5 +14,7 @@ class ConfigReader:
             username=item.get('username', ''),
             password=item.get('password', ''),
             cacert=item.get('cacert', ''),
-            owner_id=item.get('owner_id', 0))  for item in data.get('controllers', [])]
+            owner_id=item.get('owner_id', 0),
+            uuid=item.get('uuid', ''),
+            endpoint=item.get('endpoint', ''))  for item in data.get('controllers', [])]
         

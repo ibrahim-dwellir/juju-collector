@@ -9,6 +9,8 @@ class ControllerConfig:
     password: str
     cacert: str
     owner_id: int
+    uuid: str
+    endpoint: str
 
 
 @dataclass(frozen=True)

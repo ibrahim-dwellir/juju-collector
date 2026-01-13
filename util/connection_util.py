@@ -2,10 +2,10 @@
 from juju.controller import Controller
 from db.database_manager import DatabaseManager
 
-async def connect_to_juju(controller: str, username: str, password: str, cacert: str):
+async def connect_to_juju(endpoint: str, username: str, password: str, cacert: str):
     c = Controller()
     await c.connect(
-        controller_name=controller,
+        endpoint=endpoint,
         username=username,
         password=password,
         cacert=cacert

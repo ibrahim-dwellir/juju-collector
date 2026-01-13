@@ -15,7 +15,7 @@ class CollectorService:
         controller = None
         try:
             controller = await connect_to_juju(
-                controller_config.controller,
+                controller_config.endpoint,
                 controller_config.username,
                 controller_config.password,
                 controller_config.cacert,
@@ -27,7 +27,7 @@ class CollectorService:
             clouds = await self._get_clouds(controller)
             controller_info = ControllerInfo(
                 name=controller.controller_name,
-                uuid=controller.controller_uuid,
+                uuid=controller_config.uuid,
                 clouds=clouds,
             )
             await writer.prepare_controller(controller_info)
