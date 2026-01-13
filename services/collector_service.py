@@ -2,7 +2,7 @@ import logging
 
 from juju.errors import JujuError
 
-from domain.models import Cloud, ControllerInfo
+from domain.models import Cloud, ControllerInfo, ControllerConfig
 from readers.model_reader import ModelReader
 from util.connection_util import connect_to_juju
 
@@ -11,7 +11,7 @@ class CollectorService:
     def __init__(self):
         self.logger = logging.getLogger("CollectorService")
 
-    async def run(self, controller_config, writer):
+    async def run(self, controller_config: ControllerConfig, writer):
         controller = None
         try:
             controller = await connect_to_juju(
@@ -26,7 +26,7 @@ class CollectorService:
 
             clouds = await self._get_clouds(controller)
             controller_info = ControllerInfo(
-                name=controller.controller_name,
+                name=controller_config.controller,
                 uuid=controller_config.uuid,
                 clouds=clouds,
             )
