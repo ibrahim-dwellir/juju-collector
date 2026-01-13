@@ -23,7 +23,7 @@ Required:
 - `DB_URL` — database connection URL
 
 Optional:
-- `CONFIG_FILE` — path to config file (default: `config.yaml`)
+- `CONFIG_PATH` — path to config file (default: `config.yaml`)
 - `RECORD_QUERIES` — set to any value to log SQL queries
 - `PERMITTED_IP_SCOPES` — single scope string (default: `local-cloud`)
 - `PERMITTED_IP_TYPES` — single type string (default: `ipv4`)
@@ -33,12 +33,12 @@ Optional:
 Example:
 ```
 DB_URL=postgresql://user:pass@host:5432/dbname
-CONFIG_FILE=config.yaml
+CONFIG_PATH=config.yaml
 ```
 
 ### Controller config file (YAML)
-Default path is `config.yaml` unless `CONFIG_FILE` is set.
-If your file is `.config.yaml`, set `CONFIG_FILE=.config.yaml`.
+Default path is `config.yaml` unless `CONFIG_PATH` is set.
+If your file is `.config.yaml`, set `CONFIG_PATH=.config.yaml`.
 
 ```
 controllers:

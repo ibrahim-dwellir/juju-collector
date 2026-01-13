@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 async def main():
     try:
-        config_file = environ.get("CONFIG_FILE", "config.yaml")
-        configs = ConfigReader.load_config(config_file)
+        config_path = environ.get("CONFIG_PATH", "config.yaml")
+        configs = ConfigReader.load_config(config_path)
     except FileNotFoundError:
         logger.error("Config file config.yaml not found.")
         return
