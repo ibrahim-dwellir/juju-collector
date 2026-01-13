@@ -39,10 +39,14 @@ CONFIG_PATH=config.yaml
 ### Controller config file (YAML)
 Default path is `config.yaml` unless `CONFIG_PATH` is set.
 If your file is `.config.yaml`, set `CONFIG_PATH=.config.yaml`.
+Each controller entry must include `controller`, `endpoint`, `uuid`, `username`, `password`, `owner_id`, and `cacert`.
+If Juju is configured locally, you can find the controller UUID, endpoint, and `cacert` in `~/.local/share/juju/controllers.yaml` (e.g., `cat ~/.local/share/juju/controllers.yaml`). If you’re still unsure, ask someone on your team for those values. The `owner_id` is stored in the database `owner` table; create a row there for your use case if needed.
 
 ```
 controllers:
   - controller: my-controller
+    endpoint: 10.0.0.5:17070
+    uuid: 12345678-1234-1234-1234-1234567890ab
     username: admin
     password: secret
     owner_id: 1

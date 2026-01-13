@@ -1,5 +1,6 @@
 controllers:
   - controller: local
+    uuid: 12345678-1234-1234-1234-1234567890ab
     username: username
     password: password
     owner_id: 1
