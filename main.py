@@ -41,6 +41,9 @@ async def main():
             logger.exception(
                 "Controller run failed for %s", controller_config.controller
             )
+        finally:
+            if dbm:
+                await dbm.disconnect()
 
 
 if __name__ == "__main__":

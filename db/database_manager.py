@@ -59,6 +59,11 @@ class DatabaseManager:
             self.transaction = None
 
     async def disconnect(self):
+        if self.transaction:
+            try:
+                await self.transaction.rollback()
+            finally:
+                self.transaction = None
         await self.db.disconnect()
 
     async def get_entry(self):
