@@ -11,13 +11,13 @@ from domain.models import Machine, Model, Unit
 logger = getLogger(__name__)
 
 class ModelReader:
-    def __init__(self, controller: Controller, uuid):
+    def __init__(self, controller: Controller, controller_uuid: str, model_uuid):
         self.controller = controller
-        self.uuid = uuid
+        self.uuid = model_uuid
         self.name = ""
         self.owner = ""
         self.cloud = ""
-        self.controller_uuid = ""
+        self.controller_uuid = controller_uuid
         self.applications = []
         self.machines: Dict[str, Machine] = {}
 
@@ -94,7 +94,6 @@ class ModelReader:
         self.name = model.info.name
         self.owner = model.info.owner_tag[5:]
         self.cloud = model.info.cloud_tag[6:]
-        self.controller_uuid = self.controller.controller_uuid
         logger.info(f"Collecting data for model {self.uuid} ({self.name})")
         for application in model.applications.values():
             self.add_application(application)

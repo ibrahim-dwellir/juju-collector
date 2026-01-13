@@ -33,8 +33,8 @@ class CollectorService:
             await writer.prepare_controller(controller_info)
 
             models = await controller.model_uuids(all=True)
-            for uuid in models.values():
-                await self._process_model(writer, controller, uuid)
+            for model_uuid in models.values():
+                await self._process_model(writer, controller, controller_config.uuid, model_uuid)
 
             try:
                 await writer.finalize_controller()
@@ -48,27 +48,27 @@ class CollectorService:
             if controller:
                 await controller.disconnect()
 
-    async def _process_model(self, writer, controller, uuid):
+    async def _process_model(self, writer, controller, controller_uuid, model_uuid):
         try:
-            model = await ModelReader(controller, uuid).collect()
+            model = await ModelReader(controller, controller_uuid, model_uuid).collect()
         except JujuError:
-            self.logger.error("Failed to get model %s", uuid)
-            await self._handle_unreachable_model(writer, uuid)
+            self.logger.error("Failed to get model %s", model_uuid)
+            await self._handle_unreachable_model(writer, model_uuid)
             return
         except ValueError:
-            self.logger.info("Skipping model %s", uuid)
+            self.logger.info("Skipping model %s", model_uuid)
             return
 
         try:
             await writer.write_model(model)
         except Exception:
-            self.logger.exception("Failed to write model %s", uuid)
-    
-    async def _handle_unreachable_model(self, writer, uuid):
+            self.logger.exception("Failed to write model %s", model_uuid)
+
+    async def _handle_unreachable_model(self, writer, model_uuid):
         try:
-            await writer.write_unreachable_model(uuid)
+            await writer.write_unreachable_model(model_uuid)
         except Exception:
-            self.logger.exception("Failed to repopulate model %s", uuid)
+            self.logger.exception("Failed to repopulate model %s", model_uuid)
 
     async def _get_clouds(self, controller):
         clouds = (await controller.clouds()).clouds.keys()
