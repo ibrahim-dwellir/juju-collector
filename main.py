@@ -1,6 +1,7 @@
 import asyncio
 import logging
 
+import sys
 from os import environ
 from dotenv import load_dotenv
 
@@ -47,4 +48,9 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        timeout = int(environ.get("APP_TIMEOUT", "600"))
+        asyncio.run(asyncio.wait_for(main(), timeout=timeout))
+    except asyncio.TimeoutError:
+        print(f"Application closed due to timeout {timeout}s.")
+        sys.exit(1)
