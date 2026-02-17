@@ -38,10 +38,11 @@ async def main():
         try:
             dbm, entry_id = await connect_to_db(db_url, controller_config.owner_id)
             await service.run(controller_config, DatabaseWriter(dbm, entry_id))
-        except Exception:
+        except Exception as e:
             logger.exception(
-                "Controller run failed for %s", controller_config.controller
+                "Controller run failed for %s %s", controller_config.controller, controller_config.endpoint
             )
+            logger.exception(e)
         finally:
             if dbm:
                 await dbm.disconnect()
