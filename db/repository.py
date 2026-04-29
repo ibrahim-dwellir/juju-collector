@@ -83,8 +83,8 @@ async def insert_unit(db, entry_id: int, unit: Unit, application_id: int, machin
     )
 
 
-async def insert_juju_data_v1(db, owner_id: int):
-    await db.execute("CALL insert_juju_data_v1(:owner)", {"owner": owner_id})
+async def insert_juju_data(db, owner_id: int):
+    await db.execute("CALL insert_juju_data(:owner)", {"owner": owner_id})
 
 
 async def populate_unreachable_model(db, model_id: str, entry_id: int):

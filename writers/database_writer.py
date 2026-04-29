@@ -4,7 +4,7 @@ from db import (
     insert_application,
     insert_clouds,
     insert_controller,
-    insert_juju_data_v1,
+    insert_juju_data,
     insert_machine,
     insert_model,
     insert_unit,
@@ -64,7 +64,7 @@ class DatabaseWriter:
 
     async def finalize_controller(self):
         await self._ensure_transaction()
-        await insert_juju_data_v1(self.dbm.db, self.dbm.owner_id)
+        await insert_juju_data(self.dbm.db, self.dbm.owner_id)
         await self.dbm.commit()
 
     async def close(self):
